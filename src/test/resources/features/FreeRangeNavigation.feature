@@ -15,7 +15,6 @@ Feature: Navigation
       | section   |
       | Cursos    |
       | Recursos  |
-      | Udemy     |
       | Mentorías |
       | Talleres  |
       | Academia  |
