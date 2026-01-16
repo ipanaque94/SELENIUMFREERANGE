@@ -29,6 +29,14 @@ jobs:
     - name: Grant execute permission for Gradlew
       run: chmod +x gradlew
 
+    # Instala Chrome en el runner
+    - name: Install Chrome
+      run: sudo apt-get update && sudo apt-get install -y google-chrome-stable
+
+    # Instala ChromeDriver en el runner
+    - name: Install ChromeDriver
+      run: sudo apt-get install -y chromium-chromedriver
+
     # Compila el proyecto
     - name: Build with Gradle Wrapper
       run: ./gradlew clean build
@@ -43,21 +51,3 @@ jobs:
       with:
         name: test-reports
         path: build/reports/tests/test
-
-  dependency-submission:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-
-    steps:
-    - uses: actions/checkout@v4
-
-    - name: Set up JDK 17
-      uses: actions/setup-java@v4
-      with:
-        java-version: '17'
-        distribution: 'temurin'
-
-    # Genera y envía el gráfico de dependencias para Dependabot
-    - name: Generate and submit dependency graph
-      uses: gradle/actions/dependency-submission@v4
