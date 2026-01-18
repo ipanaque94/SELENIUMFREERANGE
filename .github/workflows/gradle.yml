@@ -43,7 +43,7 @@ jobs:
 
     # Ejecuta los tests
     - name: Run tests
-      run: test "-Dcucumber.options=--tags @Courses"
+      run: ./gradlew test "-Dcucumber.options=--tags @Courses"
 
     # Publica los reportes de pruebas como artefactos
     - name: Upload test reports
