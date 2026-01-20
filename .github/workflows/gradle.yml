@@ -29,21 +29,13 @@ jobs:
     - name: Grant execute permission for Gradlew
       run: chmod +x gradlew
 
-    # Instala Chrome en el runner
-    - name: Install Chrome
-      run: sudo apt-get update && sudo apt-get install -y google-chrome-stable
-
-    # Instala ChromeDriver en el runner
-    - name: Install ChromeDriver
-      run: sudo apt-get install -y chromium-chromedriver
-
     # Compila el proyecto
     - name: Build with Gradle Wrapper
       run: ./gradlew clean build
 
     # Ejecuta los tests
     - name: Run tests
-      run: ./gradlew test "-Dcucumber.options=--tags @Courses"
+      run: ./gradlew test -Dcucumber.options="--tags @Courses"
 
     # Publica los reportes de pruebas como artefactos
     - name: Upload test reports
