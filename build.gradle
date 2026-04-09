@@ -1,5 +1,4 @@
 plugins {
-    
     id 'java'
 }
 
@@ -9,15 +8,9 @@ repositories {
 
 dependencies {
     implementation 'net.masterthought:cucumber-reporting:5.7.0'
-
-    // Selenium + WebDriverManager
     testImplementation 'org.seleniumhq.selenium:selenium-java:4.38.0'
     testImplementation 'io.github.bonigarcia:webdrivermanager:6.3.2'
-
-    
     testImplementation 'junit:junit:4.13.2'
-
-    // Cucumber
     testImplementation 'io.cucumber:cucumber-java:7.30.0'
     testImplementation 'io.cucumber:cucumber-junit:7.30.0'
 }
@@ -29,15 +22,8 @@ java {
 }
 
 tasks.named('test') {
-    
     useJUnit()
-
-    systemProperty "cucumber.options", System.getProperty("cucumber.options", "")
     systemProperties System.getProperties()
-
-    testLogging {
-        events "passed", "skipped", "failed"
-    }
 }
 
 tasks.withType(JavaCompile) {
