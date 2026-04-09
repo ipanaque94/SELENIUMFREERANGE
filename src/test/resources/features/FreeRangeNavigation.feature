@@ -16,7 +16,6 @@ Feature: Navigation
       | Cursos    |
       | Recursos  |
       | Mentorías |
-      | Talleres  |
       | Academia  |
       | Blog      |
 
