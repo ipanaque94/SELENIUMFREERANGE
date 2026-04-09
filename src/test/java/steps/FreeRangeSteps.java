@@ -3,10 +3,8 @@ package steps;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
-
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 
 import driver.DriverManager;
 import io.cucumber.java.en.And;
@@ -17,6 +15,7 @@ import pages.PaginaCursos;
 import pages.PaginaIntroducciónalTestingdeSoftware;
 import pages.PaginaPrincipal;
 import pages.PaginaRegistro;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FreeRangeSteps {
 
@@ -54,7 +53,7 @@ public class FreeRangeSteps {
         List<String> listaEsperada = Arrays.asList("Academia: $16.99 / mes • 11 productos",
                 "Academia: $176 / año • 11 productos", "Free: Gratis • 1 producto");
 
-        Assert.assertEquals(listaEsperada, lista);
+        assertEquals(listaEsperada, lista);
 
     }
 

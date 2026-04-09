@@ -10,10 +10,12 @@ dependencies {
     implementation 'net.masterthought:cucumber-reporting:5.7.0'
     testImplementation 'org.seleniumhq.selenium:selenium-java:4.38.0'
     testImplementation 'io.github.bonigarcia:webdrivermanager:6.3.2'
-    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
     testImplementation 'io.cucumber:cucumber-java:7.30.0'
-    testImplementation 'io.cucumber:cucumber-junit:7.30.0'
+    testImplementation 'io.cucumber:cucumber-junit-platform-engine:7.30.0'
+    testImplementation 'org.junit.platform:junit-platform-suite:1.10.0'
 }
+
 
 java {
     toolchain {
@@ -22,7 +24,7 @@ java {
 }
 
 tasks.named('test') {
-    useJUnit()
+    useJUnitPlatform()
     systemProperties System.getProperties()
 }
 

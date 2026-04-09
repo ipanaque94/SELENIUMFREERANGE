@@ -1,13 +1,14 @@
 package pages;
 
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.Test;
+
 import driver.DriverManager;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
 
 public class FreeRangeTest {
 
-    @BeforeMethod
+    @Before
     public void setUp() {
         DriverManager.initDriver();
     }
@@ -17,7 +18,7 @@ public class FreeRangeTest {
         DriverManager.getDriver().get("https://www.freerangetesters.com");
     }
 
-    @AfterMethod
+    @After
     public void tearDown() {
         DriverManager.quitDriver();
     }
