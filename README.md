@@ -75,7 +75,7 @@ Scenario Outline: I can access the subpages through the navigation bar
     | Cursos    |
     | Recursos  |
     | Mentorías |
-    | Academia  |
+    | suscripciones  |
     | Blog      |
 ```
 
@@ -91,29 +91,20 @@ solo agrego una fila a la tabla — no creo un escenario nuevo.
 
 ```gherkin
 @Plans
-Scenario: Courses are presented correctly to potential customers
-  When I go to "Cursos" using the navigation bar
-  And The user selects Introduction to testing course
-  Then I can validate the options in the checkout page
+  Scenario: Courses are presented correctly to potential customers
+    When I go to "Cursos" using the navigation bar
+    And The user selects Introduction to testing course
+    When The user selects Comprar ahora
+    Then I can validate the options in the checkout page
 ```
 
 **Qué valida:**
-Que el flujo completo desde la navegación hasta el checkout funcione
-y que los planes disponibles sean exactamente los esperados.
 
-**Por qué validar los textos exactos del dropdown:**
-```java
-List<String> listaEsperada = Arrays.asList(
-    "Academia: $16.99 / mes • 11 productos",
-    "Academia: $176 / año • 11 productos",
-    "Free: Gratis • 1 producto"
-);
-assertEquals(listaEsperada, lista);
-```
+- Que el flujo completo desde la navegación hasta el checkout funciona.
+- Que los radio buttons de planes están presentes y sus atributos (value, id, etc.) son exactamente los esperados.
 
-Si el precio cambia de `$16.99` a `$17.99` sin avisar, este test
-falla inmediatamente. Eso es exactamente su propósito — actuar como
-un contrato que alerta cuando algo cambia en producción.
+ Eso es exactamente su propósito — actuar como
+un contrato que alerta que la configuración de planes en producción cambió.
 
 ---
 
@@ -225,7 +216,6 @@ cd SELENIUMFREERANGE
 | Selenium | 4.38.0 | Automatización del navegador con WebDriver |
 | Cucumber | 7.30.0 | Framework BDD — escenarios en Gherkin |
 | WebDriverManager | 6.3.2 | Gestión automática de drivers |
-| JUnit 4 | 4.13.2 | Runner para `@RunWith(Cucumber.class)` |
 | JUnit 5 (assertions) | 5.10.0 | `assertEquals` y `assertTrue` en los steps |
 | Gradle | 9 | Build y gestión de dependencias |
 | GitHub Actions | — | CI/CD con Chrome headless |
