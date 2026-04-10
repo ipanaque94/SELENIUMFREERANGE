@@ -1,6 +1,8 @@
 package pages;
 
 import java.time.Duration;
+import java.util.Map;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -15,6 +17,13 @@ public class PaginaPrincipal extends BasePage {
     // private String elegirUnPlanButton = "//a[contains(@href,'/buy') and
     // contains(text(),'Compra ahora')]";
     private String sectionLink = "//a[contains(normalize-space(),'%s') and @href]";
+    private static final Map<String, String> URL_MAP = Map.of(
+            "Suscripciones", "suscripciones",
+            "Cursos", "cursos",
+            "Mentorías", "mentoria-1-1-con-pato",
+            "Eventos", "eventos-en-vivo",
+            "Blog", "blog",
+            "Recursos", "recursos");
 
     public PaginaPrincipal() {
         super();
@@ -31,6 +40,10 @@ public class PaginaPrincipal extends BasePage {
 
     }
 
+    public String getCurrentUrl() {
+        return driver.getCurrentUrl();
+    }
+
     // public void clickOnSectionNavigationBar(String section) {
     // String xpathSection = String.format(sectionLink, section);
     // clickElement(xpathSection);
@@ -41,10 +54,14 @@ public class PaginaPrincipal extends BasePage {
         section = section.replace("\"", "").trim();
 
         String xpathSection = String.format(sectionLink, section);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         WebElement element = wait.until(
                 ExpectedConditions.elementToBeClickable(By.xpath(xpathSection)));
         element.click();
+    }
+
+    public String getExpectedUrlFragment(String section) {
+        return URL_MAP.getOrDefault(section, section.toLowerCase());
     }
 
     public void clickOnElegirPlanButton() {

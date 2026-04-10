@@ -25,7 +25,7 @@ java {
 
 tasks.named('test') {
     useJUnitPlatform()
-    systemProperties System.getProperties()
+    systemProperty "cucumber.options", System.getProperty("cucumber.options")
 }
 
 tasks.withType(JavaCompile) {

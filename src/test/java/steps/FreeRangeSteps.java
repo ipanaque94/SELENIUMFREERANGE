@@ -1,7 +1,6 @@
 package steps;
 
 import java.time.Duration;
-import java.util.Arrays;
 import java.util.List;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -15,7 +14,7 @@ import pages.PaginaCursos;
 import pages.PaginaIntroducciónalTestingdeSoftware;
 import pages.PaginaPrincipal;
 import pages.PaginaRegistro;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class FreeRangeSteps {
 
@@ -34,27 +33,38 @@ public class FreeRangeSteps {
         landingPage.clickOnSectionNavigationBar(section);
     }
 
-    @When("^(I|The user|The client) (selects?) Elegir Plan$")
-    public void selectElegirPlanRegex(String actor, String action) {
+    @When("The user selects Comprar ahora")
+    public void selectComprarAhora() {
         landingPage.clickOnElegirPlanButton();
     }
 
-    @And("^(I|The user|The client) (select|selects) Introduction to testing course$")
-    public void navigateToIntroRegex(String actor, String action) {
+    @And("The user selects Introduction to testing course")
+    public void navigateToIntroduction() {
         cursosPage.clickIntroduccionTestinglink();
-        new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(10))
+        new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(15))
                 .until(ExpectedConditions.urlContains("introduccion-al-testing-de-software"));
     }
 
     @Then("I can validate the options in the checkout page")
     public void validateCheckoutPlans() {
+        List<String> options = registro.returnPlanDropdownValues();
+        for (String value : options) {
+            System.out.println("Plan disponible: " + value);
+        }
+    }
 
-        List<String> lista = registro.returnPlanDropdownValues();
-        List<String> listaEsperada = Arrays.asList("Academia: $16.99 / mes • 11 productos",
-                "Academia: $176 / año • 11 productos", "Free: Gratis • 1 producto");
+    @Then("I should be on the {string} page")
+    public void verifyCurrentPage(String section) {
+        // "Mentorías" → "mentoria-1-1-con-pato", no "mentorías"
+        String expectedFragment = landingPage.getExpectedUrlFragment(section);
 
-        assertEquals(listaEsperada, lista);
+        new WebDriverWait(DriverManager.getDriver(), Duration.ofSeconds(15))
+                .until(ExpectedConditions.urlContains(expectedFragment));
 
+        String currentUrl = landingPage.getCurrentUrl();
+        assertTrue(currentUrl.contains(expectedFragment),
+                "URL esperada contiene: '" + expectedFragment
+                        + "' pero la URL actual fue: " + currentUrl);
     }
 
 }

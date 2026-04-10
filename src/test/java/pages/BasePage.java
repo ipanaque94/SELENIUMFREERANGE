@@ -79,4 +79,14 @@ public class BasePage {
         return values;
     }
 
+    // metodo para listas de Radio Buttons
+    public List<String> getRadioButtonValues(By locator) {
+        List<WebElement> radioOptions = driver.findElements(locator);
+        List<String> values = new ArrayList<>();
+        for (WebElement option : radioOptions) {
+            values.add(option.getAttribute("value"));
+        }
+        return values;
+    }
+
 }

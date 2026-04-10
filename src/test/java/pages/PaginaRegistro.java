@@ -2,16 +2,18 @@ package pages;
 
 import java.util.List;
 
+import org.openqa.selenium.By;
+
 public class PaginaRegistro extends BasePage {
 
-    private String planDropdown = "//select[@id='cart_cart_item_attributes_plan_with_interval']";
+    private By planOptions = By.xpath("//input[@name='cart[cart_items_attributes][0][offer_id]']");
 
     public PaginaRegistro() {
         super();
     }
 
     public List<String> returnPlanDropdownValues() {
-        return getDropdownValues(planDropdown);
+        return getRadioButtonValues(planOptions);
     }
 
 }
